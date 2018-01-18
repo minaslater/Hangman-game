@@ -8,7 +8,7 @@ var wordToSolve = generateWord();
 /* console.log(wordToSolve); */
 
 function getUserInput() {
-  return prompt("guess letter");
+  return prompt("guess letter"); // event listerner
 };
 
 var letterGuess = getUserInput();
