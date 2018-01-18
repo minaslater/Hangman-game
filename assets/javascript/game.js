@@ -5,4 +5,11 @@ var generateWord = function() {
 }
 
 var wordToSolve = generateWord();
-console.log(wordToSolve);
+/* console.log(wordToSolve); */
+
+function getUserInput() {
+  return prompt("guess letter"); // event listerner
+};
+
+var letterGuess = getUserInput();
+console.log(letterGuess);
