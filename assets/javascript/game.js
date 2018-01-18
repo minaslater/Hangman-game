@@ -5,11 +5,11 @@ var generateWord = function() {
 }
 
 var wordToSolve = generateWord();
-console.log(wordToSolve);
+/* console.log(wordToSolve); */
 
-var getUserInput = function() {
-  var letterGuess = prompt("guess letter");
-  return letterGuess;
+function getUserInput() {
+  return prompt("guess letter");
 };
 
-console.log(getUserInput());
+var letterGuess = getUserInput();
+console.log(letterGuess);
