@@ -6,3 +6,10 @@ var generateWord = function() {
 
 var wordToSolve = generateWord();
 console.log(wordToSolve);
+
+var getUserInput = function() {
+  var letterGuess = prompt("guess letter");
+  return letterGuess;
+};
+
+console.log(getUserInput());
