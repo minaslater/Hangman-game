@@ -5,29 +5,28 @@ function generateWord() {
   var randomIndex = Math.floor(Math.random() * availableWords.length);
   return availableWords[randomIndex].toLowerCase().split("");
 }
-// set word in fn
-var wordToSolveArr = generateWord();
-console.log(wordToSolveArr);
-// change console.log's to getElement/querySelector + innerSomething
 
-/* function getUserInput() { */
-  /* window.addEventListener("keydown", function(event) { */
-  /*   var keyPress; */
-  /*   keyPress = event.key; */
-  /* }); */
-  /* return keyPress; */
-/* }; */
-
-
+var gameOver = true;
+var wordToSolveArr;
 var alreadyGuessed = [],
     remainingGuesses = 6,
-    displayArr = wordToSolveArr.map(function(letter) {
-      return "-";
-    });
+    displayArr;
+
+// set word in fn
+function gameSetUp() {
+  wordToSolveArr = generateWord();
+  // change console.log's to getElement/querySelector + innerSomething
+  displayArr = wordToSolveArr.map(function(letter) {
+    return "-";
+  });
+  console.log(displayArr);
+  gameOver = false;
+  window.removeEventListener("keydown", gameSetUp);
+  window.addEventListener("keydown", playGame);
+}
 
 function compareLetter(event) {
   var letterGuess = event.key;
-
   if (wordToSolveArr.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
     wordToSolveArr.forEach(function(letter, index) {
@@ -51,9 +50,6 @@ function compareLetter(event) {
   }
 }
 
-window.addEventListener("keydown", playGame);
-
-
 function checkProgress() {
   if (displayArr.join("") === wordToSolveArr.join("")) {
     alert("You Win!");
@@ -62,17 +58,16 @@ function checkProgress() {
     alert("You lose!");
     gameOver = true;
   } else {
-    /* compareLetter(); */ 
     return;
   }
 }
 
 function playGame(event) {
   compareLetter(event);
-  var gameOver = false;
   checkProgress();
 }
 
-/* while (gameOver === false) { */
-/*   checkProgress(); */
-/* } */
+if (gameOver) {
+  window.addEventListener("keydown", gameSetUp);
+  alert("Hi");
+}
