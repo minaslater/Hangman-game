@@ -21,7 +21,7 @@ for (var i = 0; i < wordToSolve.length; i++) {
 };
 
 /* console.log(displayArr); */
-function checkGuess() {
+function compareLetter() {
   var letterGuess = getUserInput();
 
   if (wordToSolve.includes(letterGuess)) {
@@ -34,14 +34,33 @@ function checkGuess() {
     arrOfIndex.forEach(function(i) {
       displayArr[i] = letterGuess;
     })
+    console.log("your progress:", displayArr.join(""));
   } else {
     remainingGuesses--;
+    console.log("remaining guesses:", remainingGuesses);
   }
   alreadyGuessed.push(letterGuess);
 }
 
-checkGuess();
+compareLetter();
 
+var gameOver = false;
+
+function checkProgress() {
+  if (displayArr.join("") === wordToSolve) {
+    alert("You Win!");
+    gameOver = true;
+  } else if (remainingGuesses === 0) {
+    alert("You lose!");
+    gameOver = true;
+  } else {
+    compareLetter(); 
+  }
+}
+
+while (gameOver === false) {
+  checkProgress();
+}
 /* console.log(alreadyGuessed); */
 /* console.log(remainingGuesses); */
 /* console.log(arrOfIndex); */
