@@ -11,9 +11,6 @@ function getUserInput() {
   return prompt("guess letter"); // event listerner
 };
 
-var letterGuess = getUserInput();
-/* console.log(letterGuess); */
-
 var alreadyGuessed = [],
     remainingGuesses = 6,
     wordArr = wordToSolve.split("");
@@ -24,19 +21,28 @@ for (var i = 0; i < wordToSolve.length; i++) {
 };
 
 /* console.log(displayArr); */
+function checkGuess() {
+  var letterGuess = getUserInput();
 
-if (wordToSolve.includes(letterGuess)) {
-  var arrOfIndex = [];
-  wordArr.forEach(function(letter, index) {
-    if(letter === letterGuess) {
-      arrOfIndex.push(index);
-    }
-  })
-  arrOfIndex.forEach(function(i) {
-    displayArr[i] = letterGuess;
-  })
-  console.log(arrOfIndex);
-  console.log(displayArr);
-}  /* else { */
+  if (wordToSolve.includes(letterGuess)) {
+    var arrOfIndex = [];
+    wordArr.forEach(function(letter, index) {
+      if(letter === letterGuess) {
+        arrOfIndex.push(index);
+      }
+    })
+    arrOfIndex.forEach(function(i) {
+      displayArr[i] = letterGuess;
+    })
+  } else {
+    remainingGuesses--;
+  }
+  alreadyGuessed.push(letterGuess);
+}
 
-/* } */
+checkGuess();
+
+/* console.log(alreadyGuessed); */
+/* console.log(remainingGuesses); */
+/* console.log(arrOfIndex); */
+/* console.log(displayArr); */
