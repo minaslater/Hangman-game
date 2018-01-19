@@ -20,11 +20,10 @@ for (var i = 0; i < wordToSolve.length; i++) {
 	displayArr.push("-");
 };
 
-/* console.log(displayArr); */
 function compareLetter() {
   var letterGuess = getUserInput();
 
-  if (wordToSolve.includes(letterGuess)) {
+  if (wordToSolve.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
     wordArr.forEach(function(letter, index) {
       if(letter === letterGuess) {
@@ -34,12 +33,17 @@ function compareLetter() {
     arrOfIndex.forEach(function(i) {
       displayArr[i] = letterGuess;
     })
+    alreadyGuessed.push(letterGuess);
     console.log("your progress:", displayArr.join(""));
   } else {
-    remainingGuesses--;
-    console.log("remaining guesses:", remainingGuesses);
+    if (!alreadyGuessed.includes(letterGuess)) {
+      remainingGuesses--;
+      alreadyGuessed.push(letterGuess);
+      console.log("incorrect. remaining guesses:", remainingGuesses);
+    } else {
+      console.log("You've already guessed ", letterGuess);
+    }  
   }
-  alreadyGuessed.push(letterGuess);
 }
 
 compareLetter();
@@ -61,7 +65,3 @@ function checkProgress() {
 while (gameOver === false) {
   checkProgress();
 }
-/* console.log(alreadyGuessed); */
-/* console.log(remainingGuesses); */
-/* console.log(arrOfIndex); */
-/* console.log(displayArr); */
