@@ -1,11 +1,11 @@
 function generateWord() {
   var availableWords = ["dragonfruit", "papayas", "pear", "pineapple", "cranberries"];
   var randomIndex = Math.floor(Math.random() * availableWords.length);
-  return availableWords[randomIndex];
+  return availableWords[randomIndex].toLowerCase().split("");
 }
 
-var wordToSolve = generateWord();
-console.log(wordToSolve);
+var wordToSolveArr = generateWord();
+console.log(wordToSolveArr);
 
 function getUserInput() {
   return prompt("guess letter"); // event listerner
@@ -13,19 +13,16 @@ function getUserInput() {
 
 var alreadyGuessed = [],
     remainingGuesses = 6,
-    wordArr = wordToSolve.split("");
-    displayArr = [];
-
-for (var i = 0; i < wordToSolve.length; i++) {
-	displayArr.push("-");
-};
+    displayArr = wordToSolveArr.map(function(letter) {
+      return "-";
+    });
 
 function compareLetter() {
-  var letterGuess = getUserInput();
+  var letterGuess = getUserInput().toLowerCase();
 
-  if (wordToSolve.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
+  if (wordToSolveArr.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
-    wordArr.forEach(function(letter, index) {
+    wordToSolveArr.forEach(function(letter, index) {
       if(letter === letterGuess) {
         arrOfIndex.push(index);
       }
@@ -51,7 +48,7 @@ compareLetter();
 var gameOver = false;
 
 function checkProgress() {
-  if (displayArr.join("") === wordToSolve) {
+  if (displayArr === wordToSolveArr) {
     alert("You Win!");
     gameOver = true;
   } else if (remainingGuesses === 0) {
