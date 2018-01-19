@@ -1,15 +1,23 @@
+// var word here
+//listen for any key
 function generateWord() {
   var availableWords = ["dragonfruit", "papayas", "pear", "pineapple", "cranberries"];
   var randomIndex = Math.floor(Math.random() * availableWords.length);
   return availableWords[randomIndex].toLowerCase().split("");
 }
-
+// set word in fn
 var wordToSolveArr = generateWord();
 console.log(wordToSolveArr);
+// change console.log's to getElement/querySelector + innerSomething
 
-function getUserInput() {
-  return prompt("guess letter"); // event listerner
-};
+/* function getUserInput() { */
+  /* window.addEventListener("keydown", function(event) { */
+  /*   var keyPress; */
+  /*   keyPress = event.key; */
+  /* }); */
+  /* return keyPress; */
+/* }; */
+
 
 var alreadyGuessed = [],
     remainingGuesses = 6,
@@ -17,8 +25,8 @@ var alreadyGuessed = [],
       return "-";
     });
 
-function compareLetter() {
-  var letterGuess = getUserInput().toLowerCase();
+function compareLetter(event) {
+  var letterGuess = event.key;
 
   if (wordToSolveArr.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
@@ -26,10 +34,10 @@ function compareLetter() {
       if(letter === letterGuess) {
         arrOfIndex.push(index);
       }
-    })
+    });
     arrOfIndex.forEach(function(i) {
       displayArr[i] = letterGuess;
-    })
+    });
     alreadyGuessed.push(letterGuess);
     console.log("your progress:", displayArr.join(""));
   } else {
@@ -43,7 +51,7 @@ function compareLetter() {
   }
 }
 
-compareLetter();
+window.addEventListener("keydown", compareLetter);
 
 var gameOver = false;
 
@@ -55,10 +63,11 @@ function checkProgress() {
     alert("You lose!");
     gameOver = true;
   } else {
-    compareLetter(); 
+    /* compareLetter(); */ 
+    return;
   }
 }
 
-while (gameOver === false) {
-  checkProgress();
-}
+/* while (gameOver === false) { */
+/*   checkProgress(); */
+/* } */
