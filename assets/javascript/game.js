@@ -48,7 +48,7 @@ compareLetter();
 var gameOver = false;
 
 function checkProgress() {
-  if (displayArr === wordToSolveArr) {
+  if (displayArr.join("") === wordToSolveArr.join("")) {
     alert("You Win!");
     gameOver = true;
   } else if (remainingGuesses === 0) {
