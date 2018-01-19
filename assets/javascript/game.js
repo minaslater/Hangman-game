@@ -51,9 +51,8 @@ function compareLetter(event) {
   }
 }
 
-window.addEventListener("keydown", compareLetter);
+window.addEventListener("keydown", playGame);
 
-var gameOver = false;
 
 function checkProgress() {
   if (displayArr.join("") === wordToSolveArr.join("")) {
@@ -66,6 +65,12 @@ function checkProgress() {
     /* compareLetter(); */ 
     return;
   }
+}
+
+function playGame(event) {
+  compareLetter(event);
+  var gameOver = false;
+  checkProgress();
 }
 
 /* while (gameOver === false) { */
