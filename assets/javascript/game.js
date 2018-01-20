@@ -18,7 +18,9 @@ var gameElements = {
   wins: document.querySelector("#wins"),
   losses: document.querySelector("#losses"),
   remainingGuesses: document.querySelector("#remaining-guesses"),
-  alreadyGuessed: document.querySelector("#letters-guessed")
+  alreadyGuessed: document.querySelector("#letters-guessed"),
+  gameOver: document.querySelector("#game-over"),
+  promptStart: document.querySelector("#prompt-to-start")
 }
 
 function resetWordHTML() {
@@ -52,6 +54,8 @@ function resetStats() {
 }
 
 function gameSetUp() {
+  gameElements.promptStart.style.display = "none";
+  gameElements.gameOver.style.display = "none";
   resetStats();
   /* console.log(gameStats.displayArr); */
   resetWordHTML();
@@ -89,13 +93,19 @@ function compareLetter(event) {
 function checkProgress() {
   if (gameStats.displayArr.join("") === gameStats.wordToSolveArr.join("")) {
     gameStats.wins++;
-    alert("You win!");
+    /* alert("You win!"); */
+    gameElements.gameOver.innerText = "You Win!";
+    gameElements.gameOver.style.display = "block";
+    gameElements.promptStart.style.display = "block";
     updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
   } else if (gameStats.remainingGuesses === 0) {
     gameStats.losses++;
-    alert("You lose!");
+    /* alert("You lose!"); */
+    gameElements.gameOver.innerText = "You Lose!";
+    gameElements.gameOver.style.display = "block";
+    gameElements.promptStart.style.display = "block";
     updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
@@ -111,7 +121,7 @@ function playGame(event) {
 
 function startGame() {
   window.addEventListener("keydown", gameSetUp);
-  alert("Press any key to start game!");
+  /* alert("Press any key to start game!"); */
 }
 
 startGame();
