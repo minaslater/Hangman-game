@@ -29,12 +29,17 @@ function resetWordHTML() {
 
 function updateHTMLCorrect() {
   gameElements.word.innerText = gameStats.displayArr.join(" ");
-  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed.join(", ");
 }
 
 function updateHTMLIncorrect() {
   gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
-  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed.join(", ");
+}
+
+function updateWinLoss() {
+  gameElements.wins.innerText = gameStats.wins;
+  gameElements.losses.innerText = gameStats.losses;
 }
 
 function resetStats() {
@@ -84,12 +89,14 @@ function compareLetter(event) {
 function checkProgress() {
   if (gameStats.displayArr.join("") === gameStats.wordToSolveArr.join("")) {
     gameStats.wins++;
-    alert("You win!\nWins: " + gameStats.wins + "\nLosses: " + gameStats.losses);
+    alert("You win!");
+    updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
   } else if (gameStats.remainingGuesses === 0) {
     gameStats.losses++;
-    alert("You lose!\nWins: " + gameStats.wins + "\nLosses: " + gameStats.losses);
+    alert("You lose!");
+    updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
   } else {
