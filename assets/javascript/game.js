@@ -1,26 +1,26 @@
-// var word here
-//listen for any key
 function generateWord() {
-  var availableWords = ["dragonfruit", "papayas", "pear", "pineapple", "cranberries"];
+  var availableWords = ["apple", "kiwi", "pear", "grape", "bananas"];
   var randomIndex = Math.floor(Math.random() * availableWords.length);
   return availableWords[randomIndex].toLowerCase().split("");
 }
 
-var gameOver = true;
 var wordToSolveArr;
 var alreadyGuessed = [],
     remainingGuesses = 6,
+    wins = 0,
     displayArr;
 
 // set word in fn
 function gameSetUp() {
   wordToSolveArr = generateWord();
+  alreadyGuessed = [];
+  remainingGuesses = 6;
   // change console.log's to getElement/querySelector + innerSomething
   displayArr = wordToSolveArr.map(function(letter) {
     return "-";
   });
   console.log(displayArr);
-  gameOver = false;
+  /* gameOver = false; */
   window.removeEventListener("keydown", gameSetUp);
   window.addEventListener("keydown", playGame);
 }
@@ -51,12 +51,18 @@ function compareLetter(event) {
 }
 
 function checkProgress() {
+  /* var gameOver = false; */
   if (displayArr.join("") === wordToSolveArr.join("")) {
-    alert("You Win!");
-    gameOver = true;
+    wins++;
+    alert("You Win!\nWins: " + wins);
+    window.removeEventListener("keydown", playGame);
+    startGame();
+    /* gameOver = true; */
   } else if (remainingGuesses === 0) {
-    alert("You lose!");
-    gameOver = true;
+    alert("You lose!\nWins:" + wins);
+    window.removeEventListener("keydown", playGame);
+    startGame();
+    /* gameOver = true; */
   } else {
     return;
   }
@@ -67,7 +73,10 @@ function playGame(event) {
   checkProgress();
 }
 
-if (gameOver) {
+/* if (gameOver) { */
+function startGame() {
   window.addEventListener("keydown", gameSetUp);
-  alert("Hi");
+  alert("Press any key to start game!");
 }
+
+startGame();
