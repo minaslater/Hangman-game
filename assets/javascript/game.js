@@ -67,12 +67,14 @@ function compareLetter(event) {
       gameStats.displayArr[i] = letterGuess;
     });
     gameStats.alreadyGuessed.push(letterGuess);
-    console.log("your progress:", gameStats.displayArr.join(""));
+    /* console.log("your progress:", gameStats.displayArr.join("")); */
+    updateHTMLCorrect();
   } else {
     if (!gameStats.alreadyGuessed.includes(letterGuess)) {
       gameStats.remainingGuesses--;
       gameStats.alreadyGuessed.push(letterGuess);
-      console.log("incorrect. remaining guesses:",gameStats.remainingGuesses);
+      /* console.log("incorrect. remaining guesses:",gameStats.remainingGuesses); */
+      updateHTMLIncorrect();
     } else {
       console.log("You've already guessed ", letterGuess);
     }  
