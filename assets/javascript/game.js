@@ -4,7 +4,7 @@ function generateWord() {
   return availableWords[randomIndex].toLowerCase().split("");
 }
 
-var gameStats ={
+var gameStats = {
   wordToSolveArr: [],
   alreadyGuessed: [],
   remainingGuesses: 6,
@@ -12,6 +12,30 @@ var gameStats ={
   losses: 0,
   displayArr: []
 };
+
+var gameElements = {
+  word: document.querySelector("#word-to-guess"),
+  wins: document.querySelector("#wins"),
+  losses: document.querySelector("#losses"),
+  remainingGuesses: document.querySelector("#remaining-guesses"),
+  alreadyGuessed: document.querySelector("#letters-guessed")
+}
+
+function resetWordHTML() {
+  gameElements.word.innerText = gameStats.displayArr.join(" ");
+  gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
+  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+}
+
+function updateHTMLCorrect() {
+  gameElements.word.innerText = gameStats.displayArr.join(" ");
+  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+}
+
+function updateHTMLIncorrect() {
+  gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
+  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+}
 
 function resetStats() {
   gameStats.wordToSolveArr = generateWord();
@@ -24,7 +48,8 @@ function resetStats() {
 
 function gameSetUp() {
   resetStats();
-  console.log(gameStats.displayArr);
+  /* console.log(gameStats.displayArr); */
+  resetWordHTML();
   window.removeEventListener("keydown", gameSetUp);
   window.addEventListener("keydown", playGame);
 }
