@@ -4,46 +4,50 @@ function generateWord() {
   return availableWords[randomIndex].toLowerCase().split("");
 }
 
-var wordToSolveArr;
-var alreadyGuessed = [],
-    remainingGuesses = 6,
-    wins = 0,
-    displayArr;
+var gameStats ={
+  wordToSolveArr: [],
+  alreadyGuessed: [],
+  remainingGuesses: 6,
+  wins: 0,
+  losses: 0,
+  displayArr: []
+};
 
-// set word in fn
-function gameSetUp() {
-  wordToSolveArr = generateWord();
-  alreadyGuessed = [];
-  remainingGuesses = 6;
-  // change console.log's to getElement/querySelector + innerSomething
-  displayArr = wordToSolveArr.map(function(letter) {
-    return "-";
+function resetStats() {
+  gameStats.wordToSolveArr = generateWord();
+  gameStats.alreadyGuessed = [];
+  gameStats.remainingGuesses = 6;
+  gameStats.displayArr = gameStats.wordToSolveArr.map(function(letter) {
+    return "_";
   });
-  console.log(displayArr);
-  /* gameOver = false; */
+}
+
+function gameSetUp() {
+  resetStats();
+  console.log(gameStats.displayArr);
   window.removeEventListener("keydown", gameSetUp);
   window.addEventListener("keydown", playGame);
 }
 
 function compareLetter(event) {
   var letterGuess = event.key;
-  if (wordToSolveArr.includes(letterGuess) && !alreadyGuessed.includes(letterGuess)) {
+  if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.alreadyGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
-    wordToSolveArr.forEach(function(letter, index) {
+    gameStats.wordToSolveArr.forEach(function(letter, index) {
       if(letter === letterGuess) {
         arrOfIndex.push(index);
       }
     });
     arrOfIndex.forEach(function(i) {
-      displayArr[i] = letterGuess;
+      gameStats.displayArr[i] = letterGuess;
     });
-    alreadyGuessed.push(letterGuess);
-    console.log("your progress:", displayArr.join(""));
+    gameStats.alreadyGuessed.push(letterGuess);
+    console.log("your progress:", gameStats.displayArr.join(""));
   } else {
-    if (!alreadyGuessed.includes(letterGuess)) {
-      remainingGuesses--;
-      alreadyGuessed.push(letterGuess);
-      console.log("incorrect. remaining guesses:", remainingGuesses);
+    if (!gameStats.alreadyGuessed.includes(letterGuess)) {
+      gameStats.remainingGuesses--;
+      gameStats.alreadyGuessed.push(letterGuess);
+      console.log("incorrect. remaining guesses:",gameStats.remainingGuesses);
     } else {
       console.log("You've already guessed ", letterGuess);
     }  
@@ -51,18 +55,16 @@ function compareLetter(event) {
 }
 
 function checkProgress() {
-  /* var gameOver = false; */
-  if (displayArr.join("") === wordToSolveArr.join("")) {
-    wins++;
-    alert("You Win!\nWins: " + wins);
+  if (gameStats.displayArr.join("") === gameStats.wordToSolveArr.join("")) {
+    gameStats.wins++;
+    alert("You win!\nWins: " + gameStats.wins + "\nLosses: " + gameStats.losses);
     window.removeEventListener("keydown", playGame);
     startGame();
-    /* gameOver = true; */
-  } else if (remainingGuesses === 0) {
-    alert("You lose!\nWins:" + wins);
+  } else if (gameStats.remainingGuesses === 0) {
+    gameStats.losses++;
+    alert("You lose!\nWins: " + gameStats.wins + "\nLosses: " + gameStats.losses);
     window.removeEventListener("keydown", playGame);
     startGame();
-    /* gameOver = true; */
   } else {
     return;
   }
@@ -73,7 +75,6 @@ function playGame(event) {
   checkProgress();
 }
 
-/* if (gameOver) { */
 function startGame() {
   window.addEventListener("keydown", gameSetUp);
   alert("Press any key to start game!");
