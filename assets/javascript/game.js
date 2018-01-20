@@ -55,6 +55,7 @@ function resetStats() {
 
 function gameSetUp() {
   gameElements.promptStart.style.display = "none";
+  gameElements.gameOver.style.display = "none";
   resetStats();
   /* console.log(gameStats.displayArr); */
   resetWordHTML();
@@ -95,12 +96,16 @@ function checkProgress() {
     /* alert("You win!"); */
     gameElements.gameOver.innerText = "You Win!";
     gameElements.gameOver.style.display = "block";
+    gameElements.promptStart.style.display = "block";
     updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
   } else if (gameStats.remainingGuesses === 0) {
     gameStats.losses++;
-    alert("You lose!");
+    /* alert("You lose!"); */
+    gameElements.gameOver.innerText = "You Lose!";
+    gameElements.gameOver.style.display = "block";
+    gameElements.promptStart.style.display = "block";
     updateWinLoss();
     window.removeEventListener("keydown", playGame);
     startGame();
