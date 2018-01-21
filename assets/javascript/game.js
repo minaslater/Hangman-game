@@ -32,24 +32,31 @@ var gameElements = {
   remainingGuesses: document.querySelector("#remaining-guesses"),
   lettersGuessed: document.querySelector("#letters-guessed"),
   gameOver: document.querySelector("#game-over"),
-  promptStart: document.querySelector("#prompt-to-start")
+  promptStart: document.querySelector("#prompt-to-start"),
+
+  resetWordHTML: function () {
+    this.word.innerHTML = gameStats.createDisplayHTML();
+    this.remainingGuesses.innerText = gameStats.remainingGuesses;
+    this.lettersGuessed.innerText = gameStats.lettersGuessed;
+  },
+  updateHTMLCorrect: function() {
+    this.word.innerHTML = gameStats.createDisplayHTML();
+    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
+  },
+  updateHTMLIncorrect: function() {
+    this.remainingGuesses.innerText = gameStats.remainingGuesses;
+    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
+  }
 }
 
-function resetWordHTML() {
-  gameElements.word.innerHTML = gameStats.createDisplayHTML();
-  gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
-  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed;
-}
+/* function resetWordHTML() { */
+/* } */
 
-function updateHTMLCorrect() {
-  gameElements.word.innerHTML = gameStats.createDisplayHTML();
-  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
-}
+/* function updateHTMLCorrect() { */
+/* } */
 
-function updateHTMLIncorrect() {
-  gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
-  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
-}
+/* function updateHTMLIncorrect() { */
+/* } */
 
 function updateWinLoss() {
   gameElements.wins.innerText = gameStats.wins;
@@ -69,8 +76,7 @@ function gameSetUp() {
   gameElements.promptStart.style.display = "none";
   gameElements.gameOver.style.display = "none";
   resetStats();
-  /* console.log(gameStats.displayArr); */
-  resetWordHTML();
+  gameElements.resetWordHTML();
   window.removeEventListener("keydown", gameSetUp);
   window.addEventListener("keydown", playGame);
 }
@@ -88,12 +94,12 @@ function compareLetter(event) {
       gameStats.displayArr[i] = letterGuess;
     });
     gameStats.lettersGuessed.push(letterGuess);
-    updateHTMLCorrect();
+    gameElements.updateHTMLCorrect();
   } else {
     if (!gameStats.lettersGuessed.includes(letterGuess)) {
       gameStats.remainingGuesses--;
       gameStats.lettersGuessed.push(letterGuess);
-      updateHTMLIncorrect();
+      gameElements.updateHTMLIncorrect();
     } else {
       console.log("You've already guessed ", letterGuess);
     }  
