@@ -1,3 +1,14 @@
+html,
+body {
+  background: url("../images/tardis.png");
+  background-position: center;
+  color: #fff;
+}
+
+.blank-letter {
+  width: 50px;
+}
+
 #prompt-to-start {
 }
 
