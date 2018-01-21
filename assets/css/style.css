@@ -1,8 +1,31 @@
 html,
 body {
-  background: url("../images/tardis.png");
-  background-position: center;
+  background: url("../images/tardis.png") #041d44;
+  background-position: 40% 35%;
   color: #fff;
+}
+
+.dev {
+  border: 2px white solid;
+}
+
+.heading {
+  position: relative;
+}
+
+/* .heading_img { */
+/*   width: 30%; */
+/* } */
+
+.heading_title {
+  /* display: inline-block; */
+  font-size: 7rem;
+  /* position: absolute; */
+  /* top: 50%; */
+  transform: translateY(50%);
+  /* margin-left: 50px; */
+  /* padding: 50px; */
+  /* padding-bottom: 0px; */
 }
 
 .blank-letter {
@@ -18,4 +41,10 @@ body {
 
 #game-over {
   display: none;
+}
+
+@media screen and (max-width: 991px) {
+  .heading_title {
+    transform: none;
+  }
 }
