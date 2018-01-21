@@ -3,30 +3,31 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Great+Vibes" rel="stylesheet">
   </head>
   <body>
     <div class="container">
       <div class="row heading">
-        <img class="col-xs-12 col-md-6 heading_img" src="assets/images/dw-logo.png" />
-        <h1 class="col-xs-12 col-md-4 col-md-offset-1 heading_title">HANGMAN</h1>
+        <img class="col-xs-12 col-md-6 col-md-offset-1 heading_img" src="assets/images/dw-logo.png" />
+        <h1 class="col-xs-12 col-md-4 col-md-offset-1 heading_title">Hangman</h1>
       </div>
     </div>
     <div class="container main-content">
       <div class="row win-loss-box">
-        <h3 class="col-xs-6 col-sm-4 col-sm-offset-2">Wins</h3>
-        <h3 class="col-xs-6 col-sm-4">Losses</h3>
-        <p id="wins" class="col-xs-6 col-sm-4 col-sm-offset-2">0</p>
-        <p id="losses" class="col-xs-6 col-sm-4">0</p>
+        <h3 class="col-xs-6 col-sm-4 col-sm-offset-2 win-loss__title">Wins</h3>
+        <h3 class="col-xs-6 col-sm-4 win-loss__title">Losses</h3>
+        <p id="wins" class="col-xs-6 col-sm-4 col-sm-offset-2 win-loss__value">0</p>
+        <p id="losses" class="col-xs-6 col-sm-4 win-loss__value">0</p>
       </div>
       <div class="row">
         <h2 class="col-xs-12" id="game-over"></h2>
         <h4 class="col-xs-12" id="prompt-to-start">**Press any key to play**</h4>
       </div>
       <h2 id="word-to-guess" class="word-box"></h2>
-      <h3 class="stats-title">Remaining Guesses</h3>
-      <p id="remaining-guesses" class="stats-value">6</p>
+      <h3 class="stats__title">Remaining Guesses</h3>
+      <p id="remaining-guesses" class="stats__value">6</p>
       <h3 class="stats-title">Letters Guessed</h3>
-      <p id="letters-guessed" class="stats-value"></p>
+      <p id="letters-guessed" class="stats__value"></p>
     </div>
   </body>
   <script type="text/javascript" src="assets/javascript/game.js"></script>
