@@ -6,22 +6,28 @@
   </head>
   <body>
     <div class="container">
-      <div class="row heading dev">
-        <img class="col-xs-12 col-md-6 heading_img dev" src="assets/images/dw-logo.png" />
-        <h1 class="col-xs-12 col-md-4 col-md-offset-1 heading_title dev">HANGMAN</h1>
+      <div class="row heading">
+        <img class="col-xs-12 col-md-6 heading_img" src="assets/images/dw-logo.png" />
+        <h1 class="col-xs-12 col-md-4 col-md-offset-1 heading_title">HANGMAN</h1>
       </div>
     </div>
-    <h2 id="game-over" class="dev"></h2>
-    <h4 id="prompt-to-start" class="dev">Press any key to play</h4>
-    <h3>Wins</h3>
-    <p id="wins" class="dev">0</p>
-    <h3>Losses</h3>
-    <p id="losses" class="dev">0</p>
-    <h2 id="word-to-guess" class="dev"></h2>
-    <h3>Remaining Guesses</h3>
-    <p id="remaining-guesses" class="dev">6</p>
-    <h3>Letters Guessed</h3>
-    <p id="letters-guessed" class="dev"></p>
+    <div class="container main-content">
+      <div class="row win-loss-box">
+        <h3 class="col-xs-6 col-sm-4 col-sm-offset-2">Wins</h3>
+        <h3 class="col-xs-6 col-sm-4">Losses</h3>
+        <p id="wins" class="col-xs-6 col-sm-4 col-sm-offset-2">0</p>
+        <p id="losses" class="col-xs-6 col-sm-4">0</p>
+      </div>
+      <div class="row">
+        <h2 class="col-xs-12" id="game-over"></h2>
+        <h4 class="col-xs-12" id="prompt-to-start">**Press any key to play**</h4>
+      </div>
+      <h2 id="word-to-guess" class="word-box"></h2>
+      <h3 class="stats-title">Remaining Guesses</h3>
+      <p id="remaining-guesses" class="stats-value">6</p>
+      <h3 class="stats-title">Letters Guessed</h3>
+      <p id="letters-guessed" class="stats-value"></p>
+    </div>
   </body>
   <script type="text/javascript" src="assets/javascript/game.js"></script>
 </html>
