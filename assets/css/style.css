@@ -9,6 +9,10 @@ body {
   width: 50px;
 }
 
+.letter-box {
+  display: inline-block;
+}
+
 #prompt-to-start {
 }
 

@@ -6,11 +6,23 @@ function generateWord() {
 
 var gameStats = {
   wordToSolveArr: [],
-  alreadyGuessed: [],
+  lettersGuessed: [],
   remainingGuesses: 6,
   wins: 0,
   losses: 0,
-  displayArr: []
+  displayArr: [],
+
+  createDisplayHTML: function() {
+    var displayArrHTML = "";
+    this.displayArr.forEach(function(space) {
+      if (space === "_") {
+        displayArrHTML += "<div class='letter-box'><img class='blank-letter' src='assets/images/cg1.png' alt='circular gallifreyan' /></div>";
+      } else {
+        displayArrHTML += "<div class='letter-box correct-letter'>" + space + "</div>";
+      }
+    });
+    return displayArrHTML;
+  }
 };
 
 var gameElements = {
@@ -18,25 +30,25 @@ var gameElements = {
   wins: document.querySelector("#wins"),
   losses: document.querySelector("#losses"),
   remainingGuesses: document.querySelector("#remaining-guesses"),
-  alreadyGuessed: document.querySelector("#letters-guessed"),
+  lettersGuessed: document.querySelector("#letters-guessed"),
   gameOver: document.querySelector("#game-over"),
   promptStart: document.querySelector("#prompt-to-start")
 }
 
 function resetWordHTML() {
-  gameElements.word.innerText = gameStats.displayArr.join(" ");
+  gameElements.word.innerHTML = gameStats.createDisplayHTML();
   gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
-  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed;
+  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed;
 }
 
 function updateHTMLCorrect() {
-  gameElements.word.innerText = gameStats.displayArr.join(" ");
-  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed.join(", ");
+  gameElements.word.innerHTML = gameStats.createDisplayHTML();
+  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
 }
 
 function updateHTMLIncorrect() {
   gameElements.remainingGuesses.innerText = gameStats.remainingGuesses;
-  gameElements.alreadyGuessed.innerText = gameStats.alreadyGuessed.join(", ");
+  gameElements.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
 }
 
 function updateWinLoss() {
@@ -46,7 +58,7 @@ function updateWinLoss() {
 
 function resetStats() {
   gameStats.wordToSolveArr = generateWord();
-  gameStats.alreadyGuessed = [];
+  gameStats.lettersGuessed = [];
   gameStats.remainingGuesses = 6;
   gameStats.displayArr = gameStats.wordToSolveArr.map(function(letter) {
     return "_";
@@ -65,7 +77,7 @@ function gameSetUp() {
 
 function compareLetter(event) {
   var letterGuess = event.key;
-  if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.alreadyGuessed.includes(letterGuess)) {
+  if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
     gameStats.wordToSolveArr.forEach(function(letter, index) {
       if(letter === letterGuess) {
@@ -75,14 +87,12 @@ function compareLetter(event) {
     arrOfIndex.forEach(function(i) {
       gameStats.displayArr[i] = letterGuess;
     });
-    gameStats.alreadyGuessed.push(letterGuess);
-    /* console.log("your progress:", gameStats.displayArr.join("")); */
+    gameStats.lettersGuessed.push(letterGuess);
     updateHTMLCorrect();
   } else {
-    if (!gameStats.alreadyGuessed.includes(letterGuess)) {
+    if (!gameStats.lettersGuessed.includes(letterGuess)) {
       gameStats.remainingGuesses--;
-      gameStats.alreadyGuessed.push(letterGuess);
-      /* console.log("incorrect. remaining guesses:",gameStats.remainingGuesses); */
+      gameStats.lettersGuessed.push(letterGuess);
       updateHTMLIncorrect();
     } else {
       console.log("You've already guessed ", letterGuess);
@@ -93,7 +103,6 @@ function compareLetter(event) {
 function checkProgress() {
   if (gameStats.displayArr.join("") === gameStats.wordToSolveArr.join("")) {
     gameStats.wins++;
-    /* alert("You win!"); */
     gameElements.gameOver.innerText = "You Win!";
     gameElements.gameOver.style.display = "block";
     gameElements.promptStart.style.display = "block";
