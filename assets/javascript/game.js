@@ -62,6 +62,22 @@ var gameElements = {
     this.wins.innerText = gameStats.wins;
     this.losses.innerText = gameStats.losses;
   },
+
+  displayAlerts: function() {
+    this.gameOver.style.display = "block";
+    this.promptStart.style.display = "block"; 
+  },
+
+  displayAnswer: function() {
+    function createAnswerHTML() {
+      var answerHTML = "";
+      gameStats.wordToSolveArr.forEach(function(space) {
+        answerHTML += "<div class='letter-box correct-letter'>" + space.toUpperCase() + "</div>";
+      });
+      return answerHTML;
+    }
+    this.word.innerHTML = createAnswerHTML();
+  }
 }
 
 function gameSetUp() {
@@ -96,8 +112,7 @@ function processGuess(guess) {
       gameElements.incorrectEntry.style.display = "block"; 
     }  
   }
-}
-
+} 
 function compareLetter(event) {
   var alphaNumeric = /^[0-9a-zA-Z]+$/;
   var letterGuess = "";
@@ -117,17 +132,15 @@ function checkProgress() {
   if (gameStats.displayArr.join("") === gameStats.wordToSolveArr.join("")) {
     gameStats.wins++;
     gameElements.gameOver.innerText = "You Win!";
-    gameElements.gameOver.style.display = "block";
-    gameElements.promptStart.style.display = "block";
+    gameElements.displayAlerts();
     gameElements.updateWinLoss();
     window.removeEventListener("keyup", playGame);
     startGame();
   } else if (gameStats.remainingGuesses === 0) {
     gameStats.losses++;
-    /* alert("You lose!"); */
     gameElements.gameOver.innerText = "You Lose!";
-    gameElements.gameOver.style.display = "block";
-    gameElements.promptStart.style.display = "block";
+    gameElements.displayAlerts();
+    gameElements.displayAnswer();
     gameElements.updateWinLoss();
     window.removeEventListener("keyup", playGame);
     startGame();
@@ -143,7 +156,6 @@ function playGame(event) {
 
 function startGame() {
   window.addEventListener("keyup", gameSetUp);
-  /* alert("Press any key to start game!"); */
 }
 
 startGame();
