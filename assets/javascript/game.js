@@ -111,29 +111,6 @@ function compareLetter(event) {
   gameElements.incorrectEntry.style.display = "none"; 
 
   processGuess(letterGuess);
-  // trying to refactor
-  /* if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) { */
-  /*   var arrOfIndex = []; */
-  /*   gameStats.wordToSolveArr.forEach(function(letter, index) { */
-  /*     if(letter === letterGuess) { */
-  /*       arrOfIndex.push(index); */
-  /*     } */
-  /*   }); */
-  /*   arrOfIndex.forEach(function(i) { */
-  /*     gameStats.displayArr[i] = letterGuess; */
-  /*   }); */
-  /*   gameStats.lettersGuessed.push(letterGuess); */
-  /*   gameElements.updateHTMLCorrect(); */
-  /* } else { */
-  /*   if (!gameStats.lettersGuessed.includes(letterGuess)) { */
-  /*     gameStats.remainingGuesses--; */
-  /*     gameStats.lettersGuessed.push(letterGuess); */
-  /*     gameElements.updateHTMLIncorrect(); */
-  /*   } else { */
-  /*     gameElements.incorrectEntry.innerText = letterGuess.toUpperCase() + " has been guessed"; */
-  /*     gameElements.incorrectEntry.style.display = "block"; */ 
-  /*   } */  
-  /* } */
 }
 
 function checkProgress() {
