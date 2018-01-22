@@ -1,6 +1,81 @@
+html,
+body {
+  background: url("../images/tardis.png") #041d44;
+  background-position: center;
+  color: #fff;
+}
+
+.dev {
+  border: 2px white solid;
+}
+
+.heading {
+  position: relative;
+}
+
+.heading_title {
+  font-size: 8rem;
+  font-family: 'Alex Brush', cursive;
+  transform: translateY(50%);
+}
+
+.main-content {
+  text-align: center;
+  min-height: 500px;
+}
+
+.word-box {
+  margin-bottom: 50px;
+}
+
+.blank-letter {
+  width: 90px;
+}
+
+.letter-box {
+  display: inline-block;
+  min-width: 90px;
+  margin: 10px;
+}
+
+.win-loss-box {
+  margin-bottom: 50px;
+}
+
+.win-loss__title {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 10px;
+}
+
+.win-loss__title,
+.win-loss__value {
+  background: #d6d8db;
+  color: #041d44;
+}
+
+.win-loss__value {
+  font-size: 2rem;
+}
+
+.stats__value {
+  font-size: 3rem;
+}
+
 #prompt-to-start {
+  font-size: 3.3rem;
 }
 
 #game-over {
   display: none;
+  font-size: 4rem;
+}
+
+@media screen and (max-width: 991px) {
+  .heading_title {
+    transform: none;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
 }
