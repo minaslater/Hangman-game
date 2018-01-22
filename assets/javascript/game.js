@@ -22,6 +22,15 @@ var gameStats = {
       }
     });
     return displayArrHTML;
+  },
+
+  resetStats: function() {
+    this.wordToSolveArr = generateWord();
+    this.lettersGuessed = [];
+    this.remainingGuesses = 6;
+    this.displayArr = this.wordToSolveArr.map(function(letter) {
+      return "_";
+    });
   }
 };
 
@@ -47,33 +56,47 @@ var gameElements = {
   updateHTMLIncorrect: function() {
     this.remainingGuesses.innerText = gameStats.remainingGuesses;
     this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ").toUpperCase();
-  }
-}
+  },
 
-// put these fns in gameStats
-function updateWinLoss() {
-  gameElements.wins.innerText = gameStats.wins;
-  gameElements.losses.innerText = gameStats.losses;
-}
-
-function resetStats() {
-  gameStats.wordToSolveArr = generateWord();
-  gameStats.lettersGuessed = [];
-  gameStats.remainingGuesses = 6;
-  gameStats.displayArr = gameStats.wordToSolveArr.map(function(letter) {
-    return "_";
-  });
+  updateWinLoss: function() {
+    this.wins.innerText = gameStats.wins;
+    this.losses.innerText = gameStats.losses;
+  },
 }
 
 function gameSetUp() {
   gameElements.promptStart.style.display = "none";
   gameElements.gameOver.style.display = "none";
-  resetStats();
+  gameStats.resetStats();
   gameElements.resetWordHTML();
-  window.removeEventListener("keydown", gameSetUp);
-  window.addEventListener("keydown", playGame);
+  window.removeEventListener("keyup", gameSetUp);
+  window.addEventListener("keyup", playGame);
 }
-// fns above here
+
+function processGuess(guess) {
+  if (gameStats.wordToSolveArr.includes(guess) && !gameStats.lettersGuessed.includes(guess)) {
+    var arrOfIndex = [];
+    gameStats.wordToSolveArr.forEach(function(letter, index) {
+      if(letter === guess) {
+        arrOfIndex.push(index);
+      }
+    });
+    arrOfIndex.forEach(function(i) {
+      gameStats.displayArr[i] = guess;
+    });
+    gameStats.lettersGuessed.push(guess);
+    gameElements.updateHTMLCorrect();
+  } else {
+    if (!gameStats.lettersGuessed.includes(guess)) {
+      gameStats.remainingGuesses--;
+      gameStats.lettersGuessed.push(guess);
+      gameElements.updateHTMLIncorrect();
+    } else {
+      gameElements.incorrectEntry.innerText = guess.toUpperCase() + " has been guessed";
+      gameElements.incorrectEntry.style.display = "block"; 
+    }  
+  }
+}
 
 function compareLetter(event) {
   var alphaNumeric = /^[0-9a-zA-Z]+$/;
@@ -81,36 +104,36 @@ function compareLetter(event) {
   if (event.key.match(alphaNumeric) && event.key.length === 1) {
     letterGuess = event.key;
   } else {
-    // alert player
     gameElements.incorrectEntry.innerText = event.key + " is not a valid entry";
     gameElements.incorrectEntry.style.display = "block"; 
-    /* console.log("not a letter/number"); */
     return;
   }
   gameElements.incorrectEntry.style.display = "none"; 
-  
-  if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) {
-    var arrOfIndex = [];
-    gameStats.wordToSolveArr.forEach(function(letter, index) {
-      if(letter === letterGuess) {
-        arrOfIndex.push(index);
-      }
-    });
-    arrOfIndex.forEach(function(i) {
-      gameStats.displayArr[i] = letterGuess;
-    });
-    gameStats.lettersGuessed.push(letterGuess);
-    gameElements.updateHTMLCorrect();
-  } else {
-    if (!gameStats.lettersGuessed.includes(letterGuess)) {
-      gameStats.remainingGuesses--;
-      gameStats.lettersGuessed.push(letterGuess);
-      gameElements.updateHTMLIncorrect();
-    } else {
-      gameElements.incorrectEntry.innerText = letterGuess.toUpperCase() + " has been guessed";
-      gameElements.incorrectEntry.style.display = "block"; 
-    }  
-  }
+
+  processGuess(letterGuess);
+  // trying to refactor
+  /* if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) { */
+  /*   var arrOfIndex = []; */
+  /*   gameStats.wordToSolveArr.forEach(function(letter, index) { */
+  /*     if(letter === letterGuess) { */
+  /*       arrOfIndex.push(index); */
+  /*     } */
+  /*   }); */
+  /*   arrOfIndex.forEach(function(i) { */
+  /*     gameStats.displayArr[i] = letterGuess; */
+  /*   }); */
+  /*   gameStats.lettersGuessed.push(letterGuess); */
+  /*   gameElements.updateHTMLCorrect(); */
+  /* } else { */
+  /*   if (!gameStats.lettersGuessed.includes(letterGuess)) { */
+  /*     gameStats.remainingGuesses--; */
+  /*     gameStats.lettersGuessed.push(letterGuess); */
+  /*     gameElements.updateHTMLIncorrect(); */
+  /*   } else { */
+  /*     gameElements.incorrectEntry.innerText = letterGuess.toUpperCase() + " has been guessed"; */
+  /*     gameElements.incorrectEntry.style.display = "block"; */ 
+  /*   } */  
+  /* } */
 }
 
 function checkProgress() {
@@ -119,8 +142,8 @@ function checkProgress() {
     gameElements.gameOver.innerText = "You Win!";
     gameElements.gameOver.style.display = "block";
     gameElements.promptStart.style.display = "block";
-    updateWinLoss();
-    window.removeEventListener("keydown", playGame);
+    gameElements.updateWinLoss();
+    window.removeEventListener("keyup", playGame);
     startGame();
   } else if (gameStats.remainingGuesses === 0) {
     gameStats.losses++;
@@ -128,8 +151,8 @@ function checkProgress() {
     gameElements.gameOver.innerText = "You Lose!";
     gameElements.gameOver.style.display = "block";
     gameElements.promptStart.style.display = "block";
-    updateWinLoss();
-    window.removeEventListener("keydown", playGame);
+    gameElements.updateWinLoss();
+    window.removeEventListener("keyup", playGame);
     startGame();
   } else {
     return;
@@ -142,7 +165,7 @@ function playGame(event) {
 }
 
 function startGame() {
-  window.addEventListener("keydown", gameSetUp);
+  window.addEventListener("keyup", gameSetUp);
   /* alert("Press any key to start game!"); */
 }
 
