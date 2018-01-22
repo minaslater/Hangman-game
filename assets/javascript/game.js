@@ -82,7 +82,9 @@ function compareLetter(event) {
     letterGuess = event.key;
   } else {
     // alert player
-    console.log("not a letter/number");
+    gameElements.incorrectEntry.innerText = event.key + " is not a valid entry";
+    gameElements.incorrectEntry.style.display = "block"; 
+    /* console.log("not a letter/number"); */
     return;
   }
   gameElements.incorrectEntry.style.display = "none"; 
@@ -105,7 +107,6 @@ function compareLetter(event) {
       gameStats.lettersGuessed.push(letterGuess);
       gameElements.updateHTMLIncorrect();
     } else {
-      /* console.log("You've already guessed ", letterGuess); */
       gameElements.incorrectEntry.innerText = letterGuess.toUpperCase() + " has been guessed";
       gameElements.incorrectEntry.style.display = "block"; 
     }  
