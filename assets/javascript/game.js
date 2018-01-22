@@ -33,6 +33,7 @@ var gameElements = {
   lettersGuessed: document.querySelector("#letters-guessed"),
   gameOver: document.querySelector("#game-over"),
   promptStart: document.querySelector("#prompt-to-start"),
+  incorrectEntry: document.querySelector("#incorrect-entry"),
 
   resetWordHTML: function () {
     this.word.innerHTML = gameStats.createDisplayHTML();
@@ -84,6 +85,7 @@ function compareLetter(event) {
     console.log("not a letter/number");
     return;
   }
+  gameElements.incorrectEntry.style.display = "none"; 
   
   if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
@@ -103,7 +105,9 @@ function compareLetter(event) {
       gameStats.lettersGuessed.push(letterGuess);
       gameElements.updateHTMLIncorrect();
     } else {
-      console.log("You've already guessed ", letterGuess);
+      /* console.log("You've already guessed ", letterGuess); */
+      gameElements.incorrectEntry.innerText = letterGuess.toUpperCase() + " has been guessed";
+      gameElements.incorrectEntry.style.display = "block"; 
     }  
   }
 }
