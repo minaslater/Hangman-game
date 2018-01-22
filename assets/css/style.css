@@ -22,6 +22,8 @@ body {
 
 .word-box {
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
 }
 
 .blank-letter {
@@ -30,6 +32,7 @@ body {
 
 .letter-box {
   display: inline-block;
+  flex-grow: 1;
   font-size: 5rem;
   min-width: 90px;
   margin: 10px;
