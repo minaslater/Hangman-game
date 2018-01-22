@@ -18,7 +18,7 @@ var gameStats = {
       if (space === "_") {
         displayArrHTML += "<div class='letter-box'><img class='blank-letter' src='assets/images/cg1.png' alt='circular gallifreyan' /></div>";
       } else {
-        displayArrHTML += "<div class='letter-box correct-letter'>" + space + "</div>";
+        displayArrHTML += "<div class='letter-box correct-letter'>" + space.toUpperCase() + "</div>";
       }
     });
     return displayArrHTML;
@@ -49,15 +49,7 @@ var gameElements = {
   }
 }
 
-/* function resetWordHTML() { */
-/* } */
-
-/* function updateHTMLCorrect() { */
-/* } */
-
-/* function updateHTMLIncorrect() { */
-/* } */
-
+// put these fns in gameStats
 function updateWinLoss() {
   gameElements.wins.innerText = gameStats.wins;
   gameElements.losses.innerText = gameStats.losses;
@@ -80,9 +72,19 @@ function gameSetUp() {
   window.removeEventListener("keydown", gameSetUp);
   window.addEventListener("keydown", playGame);
 }
+// fns above here
 
 function compareLetter(event) {
-  var letterGuess = event.key;
+  var alphaNumeric = /^[0-9a-zA-Z]+$/;
+  var letterGuess = "";
+  if (event.key.match(alphaNumeric) && event.key.length === 1) {
+    letterGuess = event.key;
+  } else {
+    // alert player
+    console.log("not a letter/number");
+    return;
+  }
+  
   if (gameStats.wordToSolveArr.includes(letterGuess) && !gameStats.lettersGuessed.includes(letterGuess)) {
     var arrOfIndex = [];
     gameStats.wordToSolveArr.forEach(function(letter, index) {
