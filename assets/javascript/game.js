@@ -1,5 +1,5 @@
 function generateWord() {
-  var availableWords = ["apple", "kiwi", "pear", "grape", "bananas"];
+  var availableWords = ["cybermen", "dalek", "tardis", "gallifrey", "companion", "exterminate", "silence", "allonsy", "geronimo", "whovian", "torchwood", "trenzalore", "sontaran", "silurian", "screwdriver", "master"];
   var randomIndex = Math.floor(Math.random() * availableWords.length);
   return availableWords[randomIndex].toLowerCase().split("");
 }
