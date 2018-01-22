@@ -42,11 +42,11 @@ var gameElements = {
   },
   updateHTMLCorrect: function() {
     this.word.innerHTML = gameStats.createDisplayHTML();
-    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
+    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ").toUpperCase();
   },
   updateHTMLIncorrect: function() {
     this.remainingGuesses.innerText = gameStats.remainingGuesses;
-    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ");
+    this.lettersGuessed.innerText = gameStats.lettersGuessed.join(", ").toUpperCase();
   }
 }
 

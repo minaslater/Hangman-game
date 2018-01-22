@@ -1,12 +1,8 @@
 html,
 body {
-  background: url("../images/tardis.png") #041d44;
-  background-position: center;
+  background: url("../images/tardis-edited.png") #041d44;
+  background-position: top;
   color: #fff;
-}
-
-.dev {
-  border: 2px white solid;
 }
 
 .heading {
@@ -25,7 +21,7 @@ body {
 }
 
 .word-box {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .blank-letter {
@@ -34,6 +30,7 @@ body {
 
 .letter-box {
   display: inline-block;
+  font-size: 5rem;
   min-width: 90px;
   margin: 10px;
 }
